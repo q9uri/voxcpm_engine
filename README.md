@@ -1,22 +1,4 @@
 # VOICEVOX ENGINE
-
-[![build](https://github.com/VOICEVOX/voicevox_engine/actions/workflows/build-engine.yml/badge.svg)](https://github.com/VOICEVOX/voicevox_engine/actions/workflows/build-engine.yml)
-[![releases](https://img.shields.io/github/v/release/VOICEVOX/voicevox_engine)](https://github.com/VOICEVOX/voicevox_engine/releases)
-[![discord](https://img.shields.io/discord/879570910208733277?color=5865f2&label=&logo=discord&logoColor=ffffff)](https://discord.gg/WMwWetrzuh)
-
-[![test](https://github.com/VOICEVOX/voicevox_engine/actions/workflows/test.yml/badge.svg)](https://github.com/VOICEVOX/voicevox_engine/actions/workflows/test.yml)
-[![Coverage Status](https://coveralls.io/repos/github/VOICEVOX/voicevox_engine/badge.svg)](https://coveralls.io/github/VOICEVOX/voicevox_engine)
-
-[![build-docker](https://github.com/VOICEVOX/voicevox_engine/actions/workflows/build-engine-container.yml/badge.svg)](https://github.com/VOICEVOX/voicevox_engine/actions/workflows/build-engine-container.yml)
-[![docker](https://img.shields.io/docker/pulls/voicevox/voicevox_engine)](https://hub.docker.com/r/voicevox/voicevox_engine)
-
-[VOICEVOX](https://voicevox.hiroshiba.jp/) のエンジンです。  
-実態は HTTP サーバーなので、リクエストを送信すればテキスト音声合成できます。
-
-（エディターは [VOICEVOX](https://github.com/VOICEVOX/voicevox/) 、
-コアは [VOICEVOX CORE](https://github.com/VOICEVOX/voicevox_core/) 、
-全体構成は [こちら](https://github.com/VOICEVOX/voicevox/blob/main/docs/%E5%85%A8%E4%BD%93%E6%A7%8B%E6%88%90.md) に詳細があります。）
-
 ## 目次
 
 目的に合わせたガイドはこちらです。
