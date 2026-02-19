@@ -22,7 +22,7 @@ dependencies = [
   "uvicorn>=0.34.0",
 
   "torchcodec<0.10",
-  "transformers>=4.36.2",
+  "transformers<5.2.0",
   "einops",
   "gradio>6",
   "inflect",

@@ -31,7 +31,7 @@ typing-inspection==0.4.0
 uvicorn==0.34.0
 
 torchcodec<0.10
-transformers>=4.36.2
+transformers<5.20
 einops
 gradio>6
 inflect
