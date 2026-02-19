@@ -94,6 +94,23 @@ def _update_licenses(pip_licenses: list[_PipLicense]) -> list[_License]:
     """pip から取得したライセンス情報の抜けを補完する。"""
     package_to_license_url: dict[str, str] = {
         # "package_name": "https://license.adress.com/v0.0.0/LICENSE.txt",
+        "sudachipy": "https://github.com/WorksApplications/sudachi.rs/blob/develop/LICENSE",
+        "antlr4-python3-runtime": "https://github.com/antlr/antlr4/blob/dev/LICENSE.txt",
+        "ffmpy": "https://github.com/Ch00k/ffmpy/blob/master/LICENSE",
+        "flatbuffers":"https://github.com/google/flatbuffers/blob/master/LICENSE",
+        "gradio_client": "https://github.com/gradio-app/gradio/blob/main/LICENSE",
+        "jamo": "https://github.com/JDongian/python-jamo/blob/master/LICENSE",
+        "jieba": "https://github.com/fxsjy/jieba/blob/master/LICENSE",
+        "jpreprocess": "https://github.com/jpreprocess/jpreprocess/blob/main/LICENSE",
+        "packageurl-python": "https://github.com/package-url/packageurl-python/blob/main/mit.LICENSE",
+        "pip-requirements-parser": "https://github.com/aboutcode-org/pip-requirements-parser/blob/main/LICENSE",
+        "sentencepiece": "https://github.com/google/sentencepiece/blob/master/LICENSE",
+        "spaces": "https://github.com/huggingface/huggingface_hub/blob/main/LICENSE",
+        "textsearch": "https://github.com/kootenpv/textsearch/blob/master/setup.py",
+        "tokenizers": "https://github.com/huggingface/tokenizers/blob/main/LICENSE",
+        "torch-complex": "https://github.com/kamo-naoyuki/pytorch_complex/blob/master/setup.py",
+        "typos": "https://github.com/crate-ci/typos/blob/master/LICENSE-APACHE",
+
     }
 
     updated_licenses = []
