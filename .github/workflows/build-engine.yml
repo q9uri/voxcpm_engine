@@ -72,11 +72,11 @@ jobs:
           #  target: windows-directml
 
           # Windows NVIDIA GPU
-          #- os: windows-2022
-          #  architecture: "x64"
-          #  onnxruntime_device: cuda
-          #  zlib_url: http://www.winimage.com/zLibDll/zlib123dllx64.zip
-          #  target: windows-nvidia
+          - os: windows-2022
+            architecture: "x64"
+            onnxruntime_device: cuda
+            zlib_url: http://www.winimage.com/zLibDll/zlib123dllx64.zip
+            target: windows-nvidia
           # Mac CPU (x64 arch)
           #- os: macos-15-intel
           #  architecture: "x64"

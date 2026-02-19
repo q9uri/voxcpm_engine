@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Final, TypeVar
 from uuid import UUID, uuid4
 
-import pyopenjtalk
+from voxcpm.text.lib.ja.voicevox_g2p import pyopenjtalk
 from pydantic import TypeAdapter
 
 from ..utility.path_utility import get_save_dir, resource_root
@@ -161,7 +161,7 @@ class UserDictionary:
             f"user.dict_csv-{random_string}.tmp"
         )  # csv形式辞書データの一時保存ファイル
         tmp_compiled_path = user_dict_path.with_name(
-            f"user.dict_compiled-{random_string}.tmp"
+            f"user.dict_compiled-{random_string}.bin"
         )  # コンパイル済み辞書データの一時保存ファイル
 
         try:

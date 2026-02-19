@@ -24,7 +24,7 @@ class MockCoreWrapper(CoreWrapper):
 
     def metas(self) -> str:
 
-        with open (str(style_list_path()), "r") as f:
+        with open (str(style_list_path()), "r", encoding="utf-8") as f:
             metas = json.load(f)
             return json.dumps( metas["style_lists"] )
 

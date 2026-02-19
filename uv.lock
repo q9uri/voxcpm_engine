@@ -2171,15 +2171,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pyopenjtalk"
-version = "0.1.dev251+g74703b034"
-source = { git = "https://github.com/VOICEVOX/pyopenjtalk?rev=74703b034dd90a1f199f49bb70bf3b66b1728a86#74703b034dd90a1f199f49bb70bf3b66b1728a86" }
-dependencies = [
-    { name = "numpy" },
-    { name = "tqdm" },
-]
-
-[[package]]
 name = "pyparsing"
 version = "3.2.3"
 source = { registry = "https://pypi.org/simple" }
@@ -3077,7 +3068,6 @@ dependencies = [
     { name = "platformdirs" },
     { name = "psutil" },
     { name = "pydantic" },
-    { name = "pyopenjtalk" },
     { name = "python-multipart" },
     { name = "pyworld" },
     { name = "pyyaml" },
@@ -3159,7 +3149,6 @@ requires-dist = [
     { name = "psutil", specifier = ">=7.1.1" },
     { name = "pydantic" },
     { name = "pydantic", specifier = ">=2.7.3" },
-    { name = "pyopenjtalk", git = "https://github.com/VOICEVOX/pyopenjtalk?rev=74703b034dd90a1f199f49bb70bf3b66b1728a86" },
     { name = "python-multipart", specifier = ">=0.0.20" },
     { name = "pyworld", specifier = ">=0.3.5" },
     { name = "pyyaml", specifier = ">=6.0.1" },

@@ -38,7 +38,7 @@ def get_path(pkg_name):
 import modelscope
 import funasr
 import librosa
-import nvidia
+
 import inflect
 import typeguard
 #import fastapi
@@ -50,6 +50,8 @@ nvidia_path = site_packages_path / "nvidia"
 
 nvidia_binaries = []
 
+data = []
+
 if nvidia_path.exists():
     # nvidia フォルダ以下のすべてのファイルを再帰的に取得
     for file_path in nvidia_path.rglob("*"):
@@ -59,6 +61,10 @@ if nvidia_path.exists():
             # (コピー元フルパス, コピー先ディレクトリ)
             # コピー先を relative_path.parent にすることで、構造が維持される
             nvidia_binaries.append((str(file_path), str(relative_path.parent)))
+else:
+    import torch
+    torch_dir = os.path.dirname(torch.__file__)
+    data.append((torch_dir, "torch"))
 
 #fastapi_dir = os.path.dirname(fastapi.__file__)
 modelscope_dir = os.path.dirname(modelscope.__file__)
@@ -68,7 +74,7 @@ librosa_dir = os.path.dirname(librosa.__file__)
 inflect_dir = os.path.dirname(inflect.__file__)
 typeguard_dir = os.path.dirname(typeguard.__file__)
 
-data = []
+
 data += collect_data_files("pyopenjtalk")
 data += collect_data_files("contractions")
 # wetext も怪しいなら一緒に入れておく

@@ -2,7 +2,7 @@
 
 from dataclasses import asdict, dataclass
 
-import pyopenjtalk
+from voxcpm.text.lib.ja.voicevox_g2p import pyopenjtalk
 
 from ..utility.text_utility import count_mora, replace_zenkaku_alphabets_with_hankaku
 from .katakana_english import convert_english_to_katakana, is_hankaku_alphabet

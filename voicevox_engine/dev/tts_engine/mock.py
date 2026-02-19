@@ -5,7 +5,7 @@ from typing import Final
 
 import numpy as np
 from numpy.typing import NDArray
-from pyopenjtalk import tts
+#from pyopenjtalk import tts
 
 from ...metas.metas import StyleId
 from ...model import AudioQuery
@@ -54,7 +54,7 @@ class MockTTSEngine(TTSEngine):
         do_normalize = True
         sr_raw_wave = self.voxcpm_model.tts_model.sample_rate
 
-        with open(transcripts_path(), "r") as f:
+        with open(transcripts_path(), "r", encoding="utf-8") as f:
             wav_file_lists = json.load(f)
 
         wav_file_lists = wav_file_lists["file_lists"]
@@ -94,6 +94,7 @@ class MockTTSEngine(TTSEngine):
 
     def forward(self, text: str) -> tuple[NDArray[np.float32], int]:
         """文字列から pyopenjtalk を用いて音声を合成する。"""
+        return
         OJT_SAMPLING_RATE: Final = 48000
         OJT_AMPLITUDE_MAX: Final = 2 ** (16 - 1)
         raw_wave: NDArray[np.float64] = tts(text)[0]
