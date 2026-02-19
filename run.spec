@@ -41,6 +41,7 @@ import librosa
 import nvidia
 import inflect
 import typeguard
+#import fastapi
 
 import os
 import site
@@ -59,7 +60,7 @@ if nvidia_path.exists():
             # コピー先を relative_path.parent にすることで、構造が維持される
             nvidia_binaries.append((str(file_path), str(relative_path.parent)))
 
-
+#fastapi_dir = os.path.dirname(fastapi.__file__)
 modelscope_dir = os.path.dirname(modelscope.__file__)
 funasr_dir = os.path.dirname(funasr.__file__)
 librosa_dir = os.path.dirname(librosa.__file__)
@@ -75,6 +76,7 @@ data += collect_data_files("wetext")
 
 data += [('voxcpm', 'voxcpm')]
 
+#data.append((fastapi_dir, "fastapi"))
 data.append((modelscope_dir, "modelscope"))
 data.append((funasr_dir, "funasr"))
 data.append((typeguard_dir, "typeguard"))
@@ -94,6 +96,7 @@ a = Analysis(
         'nvidia',
         'inflect',
         'typeguard',
+        #'fastapi',
     ],
     hookspath=[],
     hooksconfig={},

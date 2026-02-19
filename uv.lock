@@ -613,20 +613,6 @@ wheels = [
 ]
 
 [[package]]
-name = "fastapi-slim"
-version = "0.115.12"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "pydantic" },
-    { name = "starlette" },
-    { name = "typing-extensions" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/60/3f/f440b9ae0cef2153864301673c435f4f11878e0ead4b6efaa6025e080a39/fastapi_slim-0.115.12.tar.gz", hash = "sha256:e53b12240bf6492be4deea1d819c4891be75c810f8cdb044b962a0286cbfc5b4", size = 295352, upload-time = "2025-03-23T22:55:41.292Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/dd/02/c49dafcddcd2eb307fb319e438e38ccbb87758377a0b32d796d2491dc403/fastapi_slim-0.115.12-py3-none-any.whl", hash = "sha256:2ebe049cfcd1d8313c781b5405dc84f921f13523269b27692e9bfa08e219bbf8", size = 95219, upload-time = "2025-03-23T22:55:39.266Z" },
-]
-
-[[package]]
 name = "ffmpeg-python"
 version = "0.2.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3068,7 +3054,7 @@ dependencies = [
     { name = "deplacy" },
     { name = "dill" },
     { name = "einops" },
-    { name = "fastapi-slim" },
+    { name = "fastapi" },
     { name = "ffmpeg-python" },
     { name = "funasr" },
     { name = "google-re2" },
@@ -3147,7 +3133,7 @@ requires-dist = [
     { name = "deplacy", specifier = ">=2.1.1" },
     { name = "dill", specifier = ">=0.3.2" },
     { name = "einops" },
-    { name = "fastapi-slim", specifier = ">=0.115.5" },
+    { name = "fastapi", specifier = ">=0.15.5" },
     { name = "ffmpeg-python" },
     { name = "funasr" },
     { name = "google-re2" },
