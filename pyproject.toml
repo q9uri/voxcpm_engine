@@ -20,13 +20,74 @@ dependencies = [
   "soxr>=0.5.0",
   "starlette>=0.45.3",
   "uvicorn>=0.34.0",
+
+  "torchcodec<0.10",
+  "transformers>=4.36.2",
+  "einops",
+  "gradio>6",
+  "inflect",
+  "addict",
+  "wetext",
+  "modelscope>=1.22.0",
+  "datasets>=3,<4",
+  "huggingface-hub[hf_xet]",
+  "pydantic",
+  "tqdm",
+  "simplejson",
+  "sortedcontainers",
+  #soundfile",
+  "librosa<0.11",
+  "matplotlib",
+  "funasr",
+  "spaces",
+  "argbind",
+  "safetensors",
+  "jpreprocess",
+  "sudachipy",
+  "sudachidict-full",
+  "sudachidict-core",
+  "kanalizer",
+  "jaconv",
+  "torch<2.10",
+  "torchaudio<2.10",
+
+  "nltk",
+  "google-re2",
+  "dill>=0.3.2",
+  "nltk>=3.1",
+  "deplacy>=2.1.1",
+  "spacy-alignments",
+
+  "ffmpeg-python",
+  "xxhash",
+  #"descript-audiotools",
+  #"librosa",
+  #"funasr",
+  "accelerate",
+  "onnxruntime",
+  "onnx",
+  "onnxslim",
+  "json5",
+  "ruamel.yaml"
 ]
 
 [tool.uv]
 default-groups = []
 
+[[tool.uv.index]]
+name = "torch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
 [tool.uv.sources]
 pyopenjtalk = { git = "https://github.com/VOICEVOX/pyopenjtalk", rev = "74703b034dd90a1f199f49bb70bf3b66b1728a86" }
+torch = [
+    { index = "torch-cu130" },
+]
+torchaudio = [
+    { index = "torch-cu130" },
+]
+
 
 [dependency-groups]
 build = [

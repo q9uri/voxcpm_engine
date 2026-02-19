@@ -25,12 +25,76 @@ if core_model_dir_path is not None and not core_model_dir_path.is_dir():
     raise Exception(f"core_model_dir_path: {core_model_dir_path} is not dir")
 
 
+from PyInstaller.utils.hooks import collect_data_files, get_package_paths
+import os
+
+# 物理パスの取得
+def get_path(pkg_name):
+    try:
+        return get_package_paths(pkg_name)[0]
+    except:
+        return None
+
+import modelscope
+import funasr
+import librosa
+import nvidia
+import inflect
+import typeguard
+
+import os
+import site
+site_packages_path = Path(site.getsitepackages()[0])
+nvidia_path = site_packages_path / "nvidia"
+
+nvidia_binaries = []
+
+if nvidia_path.exists():
+    # nvidia フォルダ以下のすべてのファイルを再帰的に取得
+    for file_path in nvidia_path.rglob("*"):
+        if file_path.is_file():
+            # site-packages から見た相対パスを取得 (例: nvidia/cuda_runtime/lib/libcudart.so.12)
+            relative_path = file_path.relative_to(site_packages_path)
+            # (コピー元フルパス, コピー先ディレクトリ)
+            # コピー先を relative_path.parent にすることで、構造が維持される
+            nvidia_binaries.append((str(file_path), str(relative_path.parent)))
+
+
+modelscope_dir = os.path.dirname(modelscope.__file__)
+funasr_dir = os.path.dirname(funasr.__file__)
+librosa_dir = os.path.dirname(librosa.__file__)
+
+inflect_dir = os.path.dirname(inflect.__file__)
+typeguard_dir = os.path.dirname(typeguard.__file__)
+
+data = []
+data += collect_data_files("pyopenjtalk")
+data += collect_data_files("contractions")
+# wetext も怪しいなら一緒に入れておく
+data += collect_data_files("wetext")
+
+data += [('voxcpm', 'voxcpm')]
+
+data.append((modelscope_dir, "modelscope"))
+data.append((funasr_dir, "funasr"))
+data.append((typeguard_dir, "typeguard"))
+data.append((inflect_dir, "inflect"))
+
+# modelscope の全ソースとデータを同梱（これでASTスキャンを正常化させる）
+
 a = Analysis(
     ["run.py"],
     pathex=[],
-    binaries=[],
-    datas=collect_data_files("pyopenjtalk"),
-    hiddenimports=[],
+    binaries=nvidia_binaries,
+    datas=data,
+    hiddenimports=[
+        'voxcpm',
+        'modelscope',
+        'librosa',
+        'nvidia',
+        'inflect',
+        'typeguard',
+    ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

@@ -29,6 +29,13 @@ def engine_manifest_path() -> Path:
     # NOTE: VOICEVOX API の規定によりエンジンマニフェストファイルは必ず `<engine_root>/engine_manifest.json` に存在する
     return engine_root() / "engine_manifest.json"
 
+def style_list_path() -> Path:
+    """リソースのルートディレクトリを指すパスを取得する。"""
+    return engine_root() / "resources/character_info/style_list.json"
+
+def transcripts_path() -> Path:
+    """リソースのルートディレクトリを指すパスを取得する。"""
+    return engine_root() / "resources/character_info/transcripts.json"
 
 def get_save_dir() -> Path:
     """ファイルの保存先ディレクトリを指すパスを取得する。"""
@@ -36,7 +43,7 @@ def get_save_dir() -> Path:
     # FIXME: Windowsは`voicevox-engine/voicevox-engine`ディレクトリに保存されているので
     # `VOICEVOX/voicevox-engine`に変更する
     if is_development():
-        app_name = "voicevox-engine-dev"
+        app_name = "voxcpm-engine-dev"
     else:
-        app_name = "voicevox-engine"
+        app_name = "voxcpm-engine"
     return Path(user_data_dir(app_name))

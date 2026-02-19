@@ -76,9 +76,9 @@ class SupportedDevicesInfo(BaseModel):
     def generate_from(cls, device_support: DeviceSupport) -> Self:
         """`DeviceSupport` インスタンスからこのインスタンスを生成する。"""
         return cls(
-            cpu=device_support.cpu,
-            cuda=device_support.cuda,
-            dml=device_support.dml,
+            cpu=False,#cpu=device_support.cpu,
+            cuda=True,#device_support.cuda,
+            dml=False,#dml=device_support.dml,
         )
 
 
@@ -596,7 +596,7 @@ def generate_tts_pipeline_router(
         """指定されたスタイルが初期化されているかどうかを返します。"""
         version = core_version or LATEST_VERSION
         engine = tts_engines.get_tts_engine(version)
-        return engine.is_synthesis_initialized(style_id)
+        return True #engine.is_synthesis_initialized(style_id)
 
     @router.get("/supported_devices", tags=["その他"])
     def supported_devices(

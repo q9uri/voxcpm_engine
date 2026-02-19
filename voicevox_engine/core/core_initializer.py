@@ -118,60 +118,60 @@ def initialize_cores(
     voicelib_dirs = voicelib_dirs or [root_dir]
     voicelib_dirs = [p.expanduser() for p in voicelib_dirs]
 
-    if not enable_mock:
+    #if not enable_mock:
+#
+    #    def load_core_library(core_dir: Path, suppress_error: bool = False) -> None:
+    #        """
+    #        指定されたコアを読み込み `core_manager` へ登録する。
+#
+    #        Parameters
+    #        ----------
+    #        core_dir : Path
+    #            直下にコア（共有ライブラリ）が存在するディレクトリ、あるいはその候補
+    #        suppress_error: bool
+    #            エラーを抑制する。`core_dir` がコア候補であることを想定。
+    #        """
+    #        # 指定されたコアを読み込み登録する
+    #        try:
+    #            # コアを読み込む
+    #            core = CoreWrapper(use_gpu, core_dir, cpu_num_threads, load_all_models)
+    #            # コアを登録する
+    #            metas = json.loads(core.metas())
+    #            core_version: str = metas[0]["version"]
+    #            if core_manager.has_core(core_version):
+    #                msg = "Core loading is skipped because of version duplication."
+    #                warnings.warn(msg, stacklevel=1)
+    #            else:
+    #                core_manager.register_core(CoreAdapter(core), core_version)
+    #        except Exception:
+    #            # コアでなかった場合のエラーを抑制する
+    #            if not suppress_error:
+    #                raise
 
-        def load_core_library(core_dir: Path, suppress_error: bool = False) -> None:
-            """
-            指定されたコアを読み込み `core_manager` へ登録する。
+    #    # `voicelib_dirs` 下のコアを読み込み登録する
+    #    for core_dir in voicelib_dirs:
+    #        load_core_library(core_dir)
 
-            Parameters
-            ----------
-            core_dir : Path
-                直下にコア（共有ライブラリ）が存在するディレクトリ、あるいはその候補
-            suppress_error: bool
-                エラーを抑制する。`core_dir` がコア候補であることを想定。
-            """
-            # 指定されたコアを読み込み登録する
-            try:
-                # コアを読み込む
-                core = CoreWrapper(use_gpu, core_dir, cpu_num_threads, load_all_models)
-                # コアを登録する
-                metas = json.loads(core.metas())
-                core_version: str = metas[0]["version"]
-                if core_manager.has_core(core_version):
-                    msg = "Core loading is skipped because of version duplication."
-                    warnings.warn(msg, stacklevel=1)
-                else:
-                    core_manager.register_core(CoreAdapter(core), core_version)
-            except Exception:
-                # コアでなかった場合のエラーを抑制する
-                if not suppress_error:
-                    raise
+    #    # ユーザーディレクトリ下のコアを読み込み登録する
+    #    # コア候補を列挙する
+    #    user_voicelib_dirs = []
+    #    core_libraries_dir = get_save_dir() / "core_libraries"
+    #    core_libraries_dir.mkdir(exist_ok=True)
+    #    user_voicelib_dirs.append(core_libraries_dir)
+    #    for path in core_libraries_dir.glob("*"):
+    #        if not path.is_dir():
+    #            continue
+    #        user_voicelib_dirs.append(path)
+    #    # コア候補を読み込み登録する。候補がコアで無かった場合のエラーを抑制する。
+    #    for core_dir in user_voicelib_dirs:
+    #        load_core_library(core_dir, suppress_error=True)
 
-        # `voicelib_dirs` 下のコアを読み込み登録する
-        for core_dir in voicelib_dirs:
-            load_core_library(core_dir)
+    #else:
+    # モック追加
+    from ..dev.core.mock import MockCoreWrapper
 
-        # ユーザーディレクトリ下のコアを読み込み登録する
-        # コア候補を列挙する
-        user_voicelib_dirs = []
-        core_libraries_dir = get_save_dir() / "core_libraries"
-        core_libraries_dir.mkdir(exist_ok=True)
-        user_voicelib_dirs.append(core_libraries_dir)
-        for path in core_libraries_dir.glob("*"):
-            if not path.is_dir():
-                continue
-            user_voicelib_dirs.append(path)
-        # コア候補を読み込み登録する。候補がコアで無かった場合のエラーを抑制する。
-        for core_dir in user_voicelib_dirs:
-            load_core_library(core_dir, suppress_error=True)
-
-    else:
-        # モック追加
-        from ..dev.core.mock import MockCoreWrapper
-
-        if not core_manager.has_core(MOCK_CORE_VERSION):
-            core = MockCoreWrapper()
-            core_manager.register_core(CoreAdapter(core), MOCK_CORE_VERSION)
+    if not core_manager.has_core(MOCK_CORE_VERSION):
+        core = MockCoreWrapper()
+        core_manager.register_core(CoreAdapter(core), MOCK_CORE_VERSION)
 
     return core_manager

@@ -7,7 +7,7 @@ import numpy as np
 from numpy.typing import NDArray
 
 from ...core.core_wrapper import CoreWrapper
-
+from ...utility.path_utility import style_list_path
 
 class MockCoreWrapper(CoreWrapper):
     """`CoreWrapper` Mock"""
@@ -20,9 +20,29 @@ class MockCoreWrapper(CoreWrapper):
         load_all_models: bool = False,
     ) -> None:
         """コアを利用可能にする。"""
-        self.default_sampling_rate = 24000
+        self.default_sampling_rate = 44100 #24000
 
     def metas(self) -> str:
+
+        with open (str(style_list_path()), "r") as f:
+            metas = json.load(f)
+            return json.dumps( metas["style_lists"] )
+
+        """
+        return json.dumps(
+            [
+                {
+                    "name": "dummy1",
+                    "styles": [
+                        {"name": "style0", "id": 1},
+                    ],
+                    "speaker_uuid": "00000000-00ec-4bdc-82cd-45a8889e43ff",
+                    "version": "mock",
+                },
+            ]
+        )
+        """
+
         """キャラクターメタ情報を文字列として取得する。"""
         return json.dumps(
             [

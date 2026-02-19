@@ -1,0 +1,11 @@
+{ "style_lists": [
+  {
+    "name": "みー",
+    "styles": [
+      {"name": "style0", "id": 1}
+    ],
+    "speaker_uuid": "00000000-00ec-4bdc-82cd-45a8889e43ff",
+    "version": "mock"
+  }
+]
+}

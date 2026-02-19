@@ -29,6 +29,7 @@ UPSPEAK_LENGTH = 0.15
 UPSPEAK_PITCH_ADD = 0.3
 UPSPEAK_PITCH_MAX = 6.5
 
+import torch
 
 class TalkInvalidInputError(Exception):
     """Talk の不正な入力エラー"""
@@ -224,7 +225,6 @@ def _query_to_decoder_feature(
 
     return phoneme, f0
 
-
 class TTSEngine:
     """音声合成器（core）の管理/実行/プロキシと音声合成フロー"""
 
@@ -236,15 +236,24 @@ class TTSEngine:
     def default_sampling_rate(self) -> int:
         """合成される音声波形のデフォルトサンプリングレートを取得する。"""
         return self._core.default_sampling_rate
+        #return self.voxcpm_model.tts_model.sample_rate
 
     @property
-    def supported_devices(self) -> DeviceSupport | None:
+    #def supported_devices(self) -> DeviceSupport | None:
+    def supported_devices(self) -> str | None:
         """合成時に各デバイスが利用可能か否かの一覧を取得する。"""
-        return self._core.supported_devices
+        #return self._core.supported_devices
+        if torch.cuda.is_available():
+            return "cuda"
+        else:
+            return
 
     def update_length(
         self, accent_phrases: list[AccentPhrase], style_id: StyleId
     ) -> list[AccentPhrase]:
+        # 学習時との整合性確保のため凍結
+        return accent_phrases
+
         """アクセント句系列に含まれる音素の長さをスタイルに合わせて更新する。"""
         # モーラ系列を抽出する
         moras = to_flatten_moras(accent_phrases)
@@ -273,6 +282,9 @@ class TTSEngine:
         self, accent_phrases: list[AccentPhrase], style_id: StyleId
     ) -> list[AccentPhrase]:
         """アクセント句系列に含まれるモーラの音高をスタイルに合わせて更新する。"""
+        # 学習時との整合性確保のため凍結
+        return accent_phrases
+
         # 後続のnumpy.concatenateが空リストだとエラーになるので別処理
         if len(accent_phrases) == 0:
             return []
@@ -340,8 +352,9 @@ class TTSEngine:
         self, accent_phrases: list[AccentPhrase], style_id: StyleId
     ) -> list[AccentPhrase]:
         """アクセント句系列に含まれる音素の長さとモーラの音高をスタイルに合わせて更新する。"""
-        accent_phrases = self.update_length(accent_phrases, style_id)
-        accent_phrases = self.update_pitch(accent_phrases, style_id)
+        # 学習時との整合性確保のため凍結
+        #accent_phrases = self.update_length(accent_phrases, style_id)
+        #accent_phrases = self.update_pitch(accent_phrases, style_id)
         return accent_phrases
 
     def create_accent_phrases(
@@ -355,7 +368,9 @@ class TTSEngine:
             text, enable_katakana_english=enable_katakana_english
         )
         accent_phrases = full_context_labels_to_accent_phrases(full_context_labels)
-        accent_phrases = self.update_length_and_pitch(accent_phrases, style_id)
+        # 学習時との整合性確保のため凍結
+        #accent_phrases = self.update_length_and_pitch(accent_phrases, style_id)
+
         return accent_phrases
 
     def create_accent_phrases_from_kana(
@@ -363,7 +378,9 @@ class TTSEngine:
     ) -> list[AccentPhrase]:
         """AquesTalk 風記法テキストからアクセント句系列を生成し、スタイルIDに基づいてその音素長・モーラ音高を更新する"""
         accent_phrases = parse_kana(kana)
-        accent_phrases = self.update_length_and_pitch(accent_phrases, style_id)
+
+        # 学習時との整合性確保のため凍結
+        #accent_phrases = self.update_length_and_pitch(accent_phrases, style_id)
         return accent_phrases
 
     def synthesize_wave(
@@ -375,22 +392,27 @@ class TTSEngine:
         """音声合成用のクエリ・スタイルID・疑問文語尾自動調整フラグに基づいて音声波形を生成する"""
         # モーフィング時などに同一参照のqueryで複数回呼ばれる可能性があるので、元の引数のqueryに破壊的変更を行わない
         query = copy.deepcopy(query)
-        query.accent_phrases = _apply_interrogative_upspeak(
-            query.accent_phrases, enable_interrogative_upspeak
-        )
+
+        #学習時との整合性確保のため凍結
+        #query.accent_phrases = _apply_interrogative_upspeak(
+        #    query.accent_phrases, enable_interrogative_upspeak
+        #)
 
         phoneme, f0 = _query_to_decoder_feature(query)
         raw_wave, sr_raw_wave = self._core.safe_decode_forward(phoneme, f0, style_id)
+
         wave = raw_wave_to_output_wave(query, raw_wave, sr_raw_wave)
         return wave
 
     def initialize_synthesis(self, style_id: StyleId, skip_reinit: bool) -> None:
         """指定されたスタイル ID に関する合成機能を初期化する。既に初期化されていた場合は引数に応じて再初期化する。"""
-        self._core.initialize_style_id_synthesis(style_id, skip_reinit=skip_reinit)
+        #self._core.initialize_style_id_synthesis(style_id, skip_reinit=skip_reinit)
+        None
 
     def is_synthesis_initialized(self, style_id: StyleId) -> bool:
         """指定されたスタイル ID に関する合成機能が初期化済みか否かを取得する。"""
-        return self._core.is_initialized_style_id_synthesis(style_id)
+        #return self._core.is_initialized_style_id_synthesis(style_id)
+        return True
 
 
 class TTSEngineNotFound(Exception):
@@ -443,7 +465,8 @@ def make_tts_engines_from_cores(core_manager: CoreManager) -> TTSEngineManager:
     """コア一覧からTTSエンジン一覧を生成する"""
     tts_engines = TTSEngineManager()
     for ver, core in core_manager.items():
-        if ver == MOCK_CORE_VERSION:
+        #if ver == MOCK_CORE_VERSION:
+        if True:
             from ..dev.tts_engine.mock import MockTTSEngine
 
             tts_engines.register_engine(MockTTSEngine(), ver)
