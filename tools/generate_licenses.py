@@ -110,6 +110,7 @@ def _update_licenses(pip_licenses: list[_PipLicense]) -> list[_License]:
         "tokenizers": "https://github.com/huggingface/tokenizers/blob/main/LICENSE",
         "torch-complex": "https://github.com/kamo-naoyuki/pytorch_complex/blob/master/setup.py",
         "typos": "https://github.com/crate-ci/typos/blob/master/LICENSE-APACHE",
+        "orjson": "https://github.com/ijl/orjson/blob/master/LICENSE-APACHE",
 
     }
 
